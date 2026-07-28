@@ -1,0 +1,123 @@
+---
+layout: base.njk
+title: DeepWhiteX — 奔赴未知，持续探索
+description: DeepWhiteX 是一个关于宇宙探索、未知远航与理性克制的科幻主题空间。
+heroHideHeader: true
+---
+
+<section class="hero" id="top">
+  <div class="hero-orbit" aria-hidden="true">
+    <svg viewBox="0 0 1000 1000" class="orbit-system">
+      <defs>
+        <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(196,184,206,0.35)" />
+          <stop offset="50%" stop-color="rgba(196,184,206,0.05)" />
+          <stop offset="100%" stop-color="rgba(184,168,200,0.25)" />
+        </linearGradient>
+        <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(196,184,206,0.18)" />
+          <stop offset="60%" stop-color="rgba(196,184,206,0.03)" />
+          <stop offset="100%" stop-color="transparent" />
+        </radialGradient>
+      </defs>
+      <circle cx="500" cy="500" r="280" fill="none" stroke="url(#orbitGrad)" stroke-width="1" opacity="0.4" />
+      <circle cx="500" cy="500" r="380" fill="none" stroke="url(#orbitGrad)" stroke-width="0.8" opacity="0.25" />
+      <circle cx="500" cy="500" r="460" fill="none" stroke="url(#orbitGrad)" stroke-width="0.6" opacity="0.15" />
+      <circle cx="500" cy="500" r="120" fill="url(#coreGlow)" />
+      <circle cx="500" cy="220" r="4" fill="rgba(232,238,245,0.7)" />
+      <circle cx="500" cy="120" r="2.5" fill="rgba(196,184,206,0.8)" />
+      <path d="M500 220 L500 120" stroke="rgba(196,184,206,0.12)" stroke-width="1" />
+      <ellipse cx="500" cy="500" rx="180" ry="60" fill="none" stroke="rgba(184,168,200,0.15)" stroke-width="1" transform="rotate(-15 500 500)" />
+    </svg>
+  </div>
+
+  <div class="hero-content">
+
+    <h1 class="hero-title">
+      <span class="title-word title-deep">Deep</span>
+      <span class="title-word title-white">White</span>
+      <span class="title-word title-x">X</span>
+    </h1>
+
+    <div class="hero-divider" aria-hidden="true">
+      <span class="hero-divider-line"></span>
+      <span class="hero-divider-dot"></span>
+    </div>
+
+    <p class="hero-subtitle">
+      在深邃无声的黑暗里，保持仰望。<br>
+      理性、克制、持续向未知远航。
+    </p>
+
+    <div class="hero-actions">
+      <a href="#explore" class="btn btn-primary">开始探索</a>
+      <a href="#mission" class="btn btn-ghost">了解使命</a>
+    </div>
+  </div>
+</section>
+
+<section class="mission" id="mission">
+  <h2>探索的理念</h2>
+  <p>我们拒绝廉价喧嚣，以沉默与秩序回应宇宙的浩瀚。</p>
+
+  <p><strong>理性轨道</strong><br>
+  以工程精度与数据逻辑，规划每一次远航，不让情绪遮蔽星图。</p>
+
+  <p><strong>微光导航</strong><br>
+  在最微弱的星辉里也能辨认方向，把遥远的光点当作坐标本身。</p>
+
+  <p><strong>未知边界</strong><br>
+  所有已知都是暂时的标记；持续向地图之外的空白区域推进。</p>
+</section>
+
+<section class="explore" id="explore">
+  <div class="section-head">
+    <span class="section-index">02</span>
+    <h2 class="section-title">远航的轨迹</h2>
+    <p class="section-desc">从深空黑的寂静出发，向未知的渐变深处推进。</p>
+  </div>
+
+  <div class="explore-visual" aria-hidden="true">
+    <svg viewBox="0 0 1200 240" class="trajectory">
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(196,184,206,0)" />
+          <stop offset="20%" stop-color="rgba(196,184,206,0.35)" />
+          <stop offset="80%" stop-color="rgba(184,168,200,0.35)" />
+          <stop offset="100%" stop-color="rgba(184,168,200,0)" />
+        </linearGradient>
+      </defs>
+      <path d="M50 180 C 300 180, 400 60, 600 120 S 900 40, 1150 120" fill="none" stroke="url(#lineGrad)" stroke-width="1.2" />
+      <circle cx="50" cy="180" r="3" fill="rgba(232,238,245,0.6)" />
+      <circle cx="600" cy="120" r="4" fill="rgba(196,184,206,0.8)" />
+      <circle cx="1150" cy="120" r="3" fill="rgba(184,168,200,0.6)" />
+      <path d="M1120 105 L1160 115 L1120 125 Z" fill="rgba(232,238,245,0.25)" />
+    </svg>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h4>启程</h4>
+        <p>确认坐标，离开熟悉光域，进入暗物质主导的静默空间。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot active"></span>
+      <div class="timeline-content">
+        <h4>巡航</h4>
+        <p>在稀薄体积光中维持航向，用微弱辉光标记时间切片。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h4>抵达</h4>
+        <p>前方不是终点，而是下一个未知的起点。循环继续。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
