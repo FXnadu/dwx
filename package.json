@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "eleventy --serve",
+    "dev": "eleventy --serve --port=8083",
     "build": "eleventy"
   },
   "keywords": [],
