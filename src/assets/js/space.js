@@ -85,7 +85,7 @@
 
   // ── 滚动显现 (ScrollTrigger) ──
   function initScrollReveal() {
-    const selectors = [".section-head", ".timeline-item"];
+    const selectors = [".section-head", ".site-list-item"];
     const elements = document.querySelectorAll(selectors.join(","));
     if (!elements.length) return;
 
