@@ -104,8 +104,15 @@ body {
 
 .brand-mark {
   color: var(--ice);
-  font-size: 1.1rem;
   opacity: 0.9;
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-mark svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: block;
 }
 
 .nav-right {
@@ -205,6 +212,7 @@ main {
   height: min(90vh, 90vw);
   max-width: 900px;
   max-height: 900px;
+  will-change: transform; /* 呼吸动画走独立合成层，避免逐帧重绘 */
 }
 
 .orbit-system circle[stroke],
@@ -318,7 +326,7 @@ main {
 /* Lead 引语 — hero 下方的独立盒子 */
 .lead {
   text-align: left;
-  padding: 7rem 4vw;
+  padding: 5rem 4vw;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -382,10 +390,10 @@ main {
 }
 
 .btn-mail {
-  margin-top: 1.25rem;
   background: var(--bg-deep);
   color: var(--silver);
   border-color: var(--border-hover);
+  flex-shrink: 0;
 }
 
 .btn-mail:hover {
@@ -394,16 +402,48 @@ main {
   border-color: var(--ice-dim);
 }
 
+.apply-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.apply-input {
+  flex: 1 1 220px;
+  max-width: 360px;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.apply-input::placeholder {
+  color: var(--silver-dim);
+}
+
+.apply-input:focus {
+  border-color: var(--border-hover);
+  background: var(--surface-strong);
+}
+
 /* 通用区块 */
 section {
-  padding: 7rem 4vw;
+  padding: 5rem 4vw;
   max-width: 1280px;
   margin: 0 auto;
 }
 
 .section-head {
   text-align: left;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .section-index {
@@ -654,7 +694,7 @@ section {
   }
 
   section {
-    padding: 5rem 4vw;
+    padding: 4rem 4vw;
   }
 
   .footer-inner {

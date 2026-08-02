@@ -55,24 +55,25 @@
       tl.from(hero, { opacity: 0, duration: 0.4 });
 
       if (words.length) {
+        // 轻量入场：仅透明度 + 轻微横向位移，避免 3D 旋转带来的额外合成层
         tl.from(words, {
           opacity: 0,
-          x: -60,
-          rotateY: 12,
-          stagger: 0.12,
-          duration: 0.9,
+          x: -32,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: "power2.out",
           // 动画结束后清除行内 transform，避免锁死 .title-white 的
           // translate(-50%, -50%) 百分比居中，导致窗口拉伸后不跟随
           clearProps: "transform,opacity",
-        }, "-=0.5");
+        }, "-=0.4");
       }
 
       if (subtitle) {
-        tl.from(subtitle, { opacity: 0, y: 24, duration: 0.8, clearProps: "all" }, "-=0.4");
+        tl.from(subtitle, { opacity: 0, y: 18, duration: 0.6, ease: "power2.out", clearProps: "all" }, "-=0.35");
       }
 
       if (actions) {
-        tl.from(actions, { opacity: 0, y: 20, duration: 0.7, clearProps: "all" }, "-=0.3");
+        tl.from(actions, { opacity: 0, y: 14, duration: 0.55, ease: "power2.out", clearProps: "all" }, "-=0.25");
       }
 
       // 入场动画结束后，再初始化滚动聚合，避免 transform 冲突
@@ -114,18 +115,31 @@
   }
 
   // ── 轨道呼吸动画 (GSAP) ──
+  // 直接作用于居中的 .orbit-system（≤900px）而非全屏容器，
+  // 合成层尺寸大幅缩小；且离屏时暂停，回到视口再恢复，视觉效果不变。
   function initOrbitAnimation() {
-    const orbit = document.querySelector(".hero-orbit");
-    if (!orbit) return;
+    const svg = document.querySelector(".orbit-system");
+    if (!svg) return;
     if (prefersReducedMotion()) return;
 
-    gsap.to(orbit, {
+    const tween = gsap.to(svg, {
       scale: 1.03,
       rotation: 2,
       duration: 16,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut",
+    });
+
+    // hero 不可见时暂停呼吸动画，可见时恢复（离屏零开销）
+    ScrollTrigger.create({
+      trigger: svg,
+      start: "top bottom",
+      end: "bottom top",
+      onEnter: () => tween.play(),
+      onLeave: () => tween.pause(),
+      onEnterBack: () => tween.play(),
+      onLeaveBack: () => tween.pause(),
     });
   }
 
@@ -473,6 +487,28 @@
     }
   }
 
+  // ── 域名申请邮件 ──
+  // 静态站点无后端，输入用途后拼接 mailto 链接打开本地邮件客户端
+  function initDomainApply() {
+    const input = document.getElementById("applyReason");
+    const btn = document.getElementById("applyBtn");
+    if (!input || !btn) return;
+
+    function send() {
+      const reason = input.value.trim();
+      const subject = encodeURIComponent("二级域名申请");
+      const body = encodeURIComponent(
+        reason ? `我想申请一个二级域名，用途如下：\n${reason}` : "我想申请一个二级域名。"
+      );
+      window.location.href = `mailto:deepwhitex@outlook.com?subject=${subject}&body=${body}`;
+    }
+
+    btn.addEventListener("click", send);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") send();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     initThemeToggle();
 
@@ -483,5 +519,6 @@
     initHeaderFooterReveal();
 
     initMenu(); // 全屏导航菜单
+    initDomainApply();
   });
 })();
