@@ -242,11 +242,11 @@ li { margin-bottom: 0.3rem; }
   margin-right: 0.4em;
   font-weight: 300;
 }
-.page-head .lead {
+.page-head p {
   color: var(--muted);
-  font-size: 0.95rem;
   max-width: 640px;
 }
+.page-head .lead { font-size: 0.95rem; }
 .page-head .lead::before { content: '— '; }
 
 /* 章节 */
@@ -352,6 +352,27 @@ td .code { font-family: var(--font-mono); font-size: 0.85em; }
 .badge-warn { background: var(--warn-bg); color: var(--warn-text); border-color: var(--warn-border); }
 .badge-danger { background: var(--danger-bg); color: var(--danger-text); border-color: var(--danger-border); }
 .badge-accent { background: var(--ring); color: var(--text); border-color: transparent; }
+
+/* 开源地址按钮 */
+.repo-row { margin-top: 14px; }
+.repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+.repo-link:hover {
+  border-color: var(--accent);
+  color: var(--ice);
+  background: var(--surface);
+}
 
 /* ---------- 提示框 ---------- */
 .callout {
