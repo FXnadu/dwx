@@ -1,6 +1,6 @@
 ---
-title: 项目成果展示 — dwxComment
-description: dwxComment 的项目成果展示：实测压测数据与专业图表（真实数据非估算）、内存与并发表现、资源占用对比与结论建议。
+title: dwx 评论系统测试报告
+description: dwx 评论系统测试报告：实测压测数据与专业图表（真实数据非估算）、内存与并发表现、资源占用对比与结论建议。
 ---
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@ description: dwxComment 的项目成果展示：实测压测数据与专业图�
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>项目成果展示 — dwxComment</title>
-<meta name="description" content="dwxComment 的项目成果展示：实测压测数据与专业图表（真实数据非估算）、内存与并发表现、资源占用对比与结论建议。">
+<title>dwx 评论系统测试报告</title>
+<meta name="description" content="dwx 评论系统测试报告：实测压测数据与专业图表（真实数据非估算）、内存与并发表现、资源占用对比与结论建议。">
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=inter:300,400,500|space-grotesk:300,400,500" rel="stylesheet">
 <link rel="stylesheet" href="/assets/docs/css/style.css">
@@ -41,7 +41,7 @@ description: dwxComment 的项目成果展示：实测压测数据与专业图�
           <tr>
             <td>读路径吞吐</td>
             <td><strong>≈ 44,481 req/s</strong></td>
-            <td>5 实例合计、限流放宽后的真实容量（旧口径 7.9 万含限流响应，见 §01 口径注）</td>
+            <td>5 实例合计、限流放宽后的真实容量（见 §01 口径说明）</td>
           </tr>
           <tr>
             <td>读路径延迟</td>
@@ -157,27 +157,10 @@ description: dwxComment 的项目成果展示：实测压测数据与专业图�
       <div class="chart-note">读压测期间 goroutine 在 112~147 间波动（连接池/处理器并发），压测结束后回落至 31，无协程泄漏；单实例整机 WorkingSet ≤ 29.2MB。</div>
     </div>
 
-    <h3 style="margin-top:28px;">防失真措施：这 8 条让上面的数字可信</h3>
+    <h3 style="margin-top:28px;">防失真措施</h3>
     <div class="callout">
       <span class="co-title">这些数字会不会是"蒙的、抄的、老师放水的"？</span>
-      把压测想象成一场考试，下面 8 条措施分别回答了「防什么」和「怎么证明」。压测全程由一键脚本 <code>scripts/bench-all.ps1</code> 自动采集，原始 CSV 全部留档，任何人可复现。
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>措施</th><th>防止什么失真</th><th>怎么证明</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>1 · 专业工具监考</strong></td><td>人工数错、掐表不准</td><td>用业界标准 hey + Go 官方 pprof 自动记录，每笔有原始文件</td></tr>
-          <tr><td><strong>2 · 两套考卷分开</strong></td><td>把被拦的请求误算成成功（旧报告 7.9 万虚高的来源）</td><td>严格配置考"规则"，放宽配置考"真实能力"</td></tr>
-          <tr><td><strong>3 · 大样本反复考</strong></td><td>一次发挥失常让结果失真</td><td>读路径累计 133.4 万次、延迟采样 60.5 万次</td></tr>
-          <tr><td><strong>4 · 先查监考工具</strong></td><td>压测工具自身的毛病嫁祸给服务端</td><td>修复 3 处客户端干扰（端口耗尽假错误 9,694 个、curl 瓶颈、GC 假内存）</td></tr>
-          <tr><td><strong>5 · 异常值当警报</strong></td><td>一个异常高分拉高平均值</td><td>重测剔除 43,602 异常值，5 实例收窄到 8.7k~9.2k</td></tr>
-          <tr><td><strong>6 · 服务端全程留底</strong></td><td>报错被刷掉看不见</td><td>压测全程服务端日志落盘，0 字节 = 无 panic</td></tr>
-          <tr><td><strong>7 · 一键可复现</strong></td><td>数字死无对证</td><td>bench-all.ps1 一键重跑，原始 CSV 全保留</td></tr>
-          <tr><td><strong>8 · 主动写明前提</strong></td><td>实验室上限被当成生产承诺</td><td>报告标注空库/本机/放宽口径，建议按 1/5~1/10 折算</td></tr>
-        </tbody>
-      </table>
+      不会。压测全程由一键脚本 <code>scripts/bench-all.ps1</code> 自动采集，原始 CSV 全部留档、任何人可复现；用业界标准 hey + Go pprof 记录，大样本取数并剔除异常值，修复压测工具自身干扰，服务端日志全程落底，并主动注明空库、本机、放宽口径等前提。
     </div>
   </section>
 
@@ -248,7 +231,7 @@ description: dwxComment 的项目成果展示：实测压测数据与专业图�
           <tr><td><strong>性能达标</strong></td><td>读路径真实容量 ≈ 44,481 req/s（5 实例并行，限流放宽口径），单实例 8.7k~9.2k req/s、平均 2.2~2.3ms、p99 ≤ 11.8ms，1,334,644 次响应 0 错误；写路径单 IP 最坏场景限流与每日上限精确生效，0 业务异常、0 HTTP 错误。</td></tr>
           <tr><td><strong>内存稳定</strong></td><td>单实例 WorkingSet 峰值 29.2MB、HeapInuse 7.7MB，goroutine 无泄漏，1 核 512MB 机器实测达标。</td></tr>
           <tr><td><strong>线上运行健康</strong></td><td>TTFB ~58ms（以网络 RTT 为主），限流、CORS、TLS、静态缓存、IP 伪造防护全部按设计生效，业务数据读写正常。</td></tr>
-          <tr><td><strong>数据严谨</strong></td><td>全部图表由原始压测数据渲染（scripts/bench-all.ps1 + gen-perf-charts.py），原始 CSV/JSON 归档于产物目录，可复现；旧口径「7.9 万」已修正为「4.45 万真实容量」。</td></tr>
+          <tr><td><strong>数据严谨</strong></td><td>全部图表由原始压测数据渲染（scripts/bench-all.ps1 + gen-perf-charts.py），原始 CSV/JSON 归档于产物目录，可复现；读路径真实容量为 44,481 req/s（约 4.45 万）。</td></tr>
         </tbody>
       </table>
     </div>
